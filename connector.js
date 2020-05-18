@@ -109,7 +109,7 @@ processRequestResults(error, response, body, callback)
     } else {
         callbackData = response;
     }
-    console.log("ddhjhdc");
+ 
     return callback(callbackData, callbackError);
    
 }
