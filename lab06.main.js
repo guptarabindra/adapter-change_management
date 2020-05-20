@@ -187,27 +187,7 @@ class ServiceNowAdapter extends EventEmitter {
      * Note how the object was instantiated in the constructor().
      * get() takes a callback function.
      */
-     this.connector.get(this.props, (results, error) => {
-         if (results) {
-             let records = JSON.parse(results.body).result;
-             let data = [];
-             
-             results.forEach( (record)=>{
-                 data.push({
-                    change_ticket_number : record.number,
-                    active : record.active,
-                    priority : record.priority,
-                    description : record.description,
-                    work_start : record.work_start,
-                    work_end: record.work_end,
-                    change_ticket_key : record.sys_id 
-                 })
-             })
-        
-             return callback(data, error);
-         }
-        callback(results, error);
-     });
+    this.connector.get(this.props, callback);
   }
 
   /**
@@ -226,24 +206,8 @@ class ServiceNowAdapter extends EventEmitter {
      * Note how the object was instantiated in the constructor().
      * post() takes a callback function.
      */
-     this.connector.post(this.props, (result, error) => {
-          if (result) {
-             let record = JSON.parse(result.body).result;
-             
-             return callback({
-                    change_ticket_number : record.number,
-                    change_ticket_key : record.sys_id,
-                    active : record.active,
-                    priority : record.priority,
-                    description : record.description,
-                    work_start : record.work_start,
-                    work_end: record.work_end
-                }, error);
-        }
-        callback(result, error);     
-     });
+     this.connector.post(this.props, callback);
   }
-  
 }
 
 module.exports = ServiceNowAdapter;
